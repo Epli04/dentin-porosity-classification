@@ -1,0 +1,40 @@
+# ResNet50 — High Resolution Configuration
+# Used in: 04_resnet50_HR.ipynb
+
+model:
+  name: "resnet50"
+  pretrained: true
+  num_classes: 3
+
+data:
+  resolution: "HR"        # HR, x2, x4, x8
+  patch_size: 128
+  num_classes: 3
+  class_names: ["tubules", "branches", "both"]
+  num_workers: 2
+
+split:
+  strategy: "roi_based"   # ROI-based to prevent leakage
+  train_rois: [1, 2, 3, 4]
+  val_rois: [5]
+  test_rois: [6]
+  random_seed: 42
+
+training:
+  batch_size: 32
+  num_epochs: 30
+  learning_rate: 1.0e-4
+  weight_decay: 1.0e-4
+  optimizer: "adamw"
+  scheduler: "cosine"
+  early_stopping_patience: 7
+
+augmentation:
+  random_horizontal_flip: 0.5
+  random_vertical_flip: 0.5
+  random_rotation: 30
+  normalize: true         # ImageNet stats since pretrained
+
+logging:
+  log_interval: 20        # batches
+  save_best_only: true
