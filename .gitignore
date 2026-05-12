@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Data — datayı asla repoya koyma!
+data/
+*.tif
+*.tiff
+*.zip
+
+# Model checkpoints — büyükler, repoya gitmesinler
+*.pth
+*.pt
+*.h5
+*.ckpt
+checkpoints/
+weights/
+
+# Results (büyük dosyalar hariç tut, küçük metrik dosyalarını commit et)
+results/runs/
+results/wandb/
+results/*.png
+!results/figures/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
