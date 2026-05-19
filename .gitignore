@@ -30,7 +30,7 @@ weights/
 # Results (büyük dosyalar hariç tut, küçük metrik dosyalarını commit et)
 results/runs/
 results/wandb/
-results/*.png
+#results/*.png
 !results/figures/
 
 # OS
