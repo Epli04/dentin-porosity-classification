@@ -1,0 +1,37 @@
+# Baseline CNN — High Resolution
+# Üreten notebook: 03_baseline_cnn.ipynb
+# Sıfırdan (from scratch) eğitilen basit CNN — referans (baseline) model.
+model:
+  name: "baseline_cnn"
+  pretrained: false
+  num_classes: 3
+data:
+  resolution: "HR"
+  patch_size: 128
+  num_classes: 3
+  class_names: ["tubules", "branches", "both"]
+  num_workers: 2
+  normalize: true            # basit ölçekleme (pretrained yok, ImageNet istatistikleri DEĞİL)
+
+split:
+  strategy: "roi_based"        # ROI bazlı — veri sızıntısını önlemek için
+  train_rois: [1, 2, 3, 4]
+  val_rois: [5]
+  test_rois: [6]
+  random_seed: 42
+
+augmentation:
+  random_horizontal_flip: 0.5
+  random_vertical_flip: 0.5
+  random_rotation: 30
+
+logging:
+  save_best_only: true         # en iyi val doğruluğundaki ağırlık kaydedilir
+
+training:
+  batch_size: 32
+  num_epochs: 20
+  optimizer: "adam"
+  learning_rate: 1.0e-3
+  weight_decay: 1.0e-4
+  scheduler: "none"

@@ -1,0 +1,28 @@
+# Core deep learning
+torch>=2.0.0
+torchvision>=0.15.0
+timm>=0.9.0  # pretrained models
+
+# Data handling
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+Pillow>=10.0.0
+tifffile>=2023.4.12  # TIFF support
+opencv-python>=4.8.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.15.0
+
+# Experiment tracking & utilities
+tqdm>=4.65.0
+PyYAML>=6.0
+tensorboard>=2.13.0
+
+# Grad-CAM
+grad-cam>=1.4.8
+
+# For reports
+jupyter>=1.0.0

@@ -1,0 +1,48 @@
+# ResNet50 — HR
+# Üreten notebook: 04_resnet50.ipynb
+# Transfer learning (ImageNet pretrained), iki aşamalı fine-tuning.
+model:
+  name: "resnet50"
+  pretrained: true             # ImageNet1K_V1
+  num_classes: 3
+data:
+  resolution: "HR"
+  patch_size: 128
+  num_classes: 3
+  class_names: ["tubules", "branches", "both"]
+  num_workers: 2
+  normalize: true            # ImageNet mean/std (pretrained)
+
+split:
+  strategy: "roi_based"        # ROI bazlı — veri sızıntısını önlemek için
+  train_rois: [1, 2, 3, 4]
+  val_rois: [5]
+  test_rois: [6]
+  random_seed: 42
+
+augmentation:
+  random_horizontal_flip: 0.5
+  random_vertical_flip: 0.5
+  random_rotation: 30
+
+logging:
+  save_best_only: true         # en iyi val doğruluğundaki ağırlık kaydedilir
+
+training:
+  batch_size: 32
+  num_epochs: 25               # toplam (Aşama 1 + Aşama 2)
+  # Aşama 1: backbone donduruldu, yalnız FC katmanı eğitildi
+  phase1:
+    epochs: 5
+    optimizer: "adam"
+    learning_rate: 1.0e-3
+    weight_decay: 1.0e-4
+    trainable: "fc_only"
+  # Aşama 2: tüm ağ çözüldü (full fine-tune)
+  phase2:
+    epochs: 20
+    optimizer: "adamw"
+    learning_rate: 1.0e-4
+    weight_decay: 1.0e-4
+    scheduler: "cosine"        # CosineAnnealingLR, T_max=20
+    trainable: "all"
